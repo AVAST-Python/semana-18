@@ -59,10 +59,7 @@
    - **Observar el estado actual (s)**.
    - **Elegir una acción (a)**: A menudo usando una política epsilon-greedy donde el agente principalmente elige la acción con el valor Q más alto, pero ocasionalmente explora acciones aleatorias.
    - **Realizar la acción (a)** y observar la recompensa (r) y el siguiente estado (s').
-   - **Actualizar el valor Q**:
-     \[
-     Q(s, a) \leftarrow Q(s, a) + \alpha \left[ r + \gamma \max_{a'} Q(s', a') - Q(s, a) \right]
-     \]
+   - **Actualizar el valor Q**: Q(s) = Q(s) + α * ( Q(s') - Q(s) )
 3. **Repetir hasta la convergencia**: Continuar el proceso hasta que los valores Q converjan a valores estables.
 
 [Más información](https://www.datacamp.com/tutorial/introduction-q-learning-beginner-tutorial)
