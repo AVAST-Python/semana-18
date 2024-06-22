@@ -1,17 +1,90 @@
 # Introducción a Python
 
-## Semana 17
+## Semana 18
 <!-- .element style="text-align:center" -->
 
 ![alt text](./img/logo2.png) <!-- .element style="margin-left: auto; margin-right: auto; display: block; width: 200px;" -->
 
 ---
 
-![alt text](./img/violencia.jpg) <!-- .element style="margin-left: auto; margin-right: auto; display: block; width: 100%;" -->
+# Agentes inteligentes
+
+#### El problema real: <!-- .element style="text-align:center" -->
+
+![alt text](./img/bellman.jpg) <!-- .element style="margin-left: auto; margin-right: auto; display: block; width: 50%;" -->
+
+- Encontrar el valor de cada estado
+- Según el valor de cada estado, aplicaremos una política
+- El estado depende de la política
 
 ---
 
-![alt text](./img/battlesnake.gif) <!-- .element style="margin-left: auto; margin-right: auto; display: block" -->
+# El bandido de múltiples brazos
+
+![alt text](./img/bandit.jpg) <!-- .element style="margin-left: auto; margin-right: auto; display: block; width: 50%;" --> <!-- .element: class="fragment" -->
+
+<ul>
+<li>Objetivo: ganar lo más posible</li>
+<li>Sólo hay un estado, no hay una secuencia</li>
+<li>El valor de cada estado no depende de la política</li>
+</ul> <!-- .element: class="fragment" -->
+
+---
+
+# Exploración vs Explotación
+
+![alt text](./img/EvsE.png) <!-- .element style="margin-left: auto; margin-right: auto; display: block; width: 50%;" -->
+
+- La **exploración** se utiliza para aumentar el conocimiento sobre un entorno o modelo
+- La **explotación** se utiliza para aprovechar el conocimiento actual para maximizar la recompensa
+- Si siempre explotamos, no descubriremos nuevas opciones
+- Si siempre exploramos, no aprovecharemos las opciones conocidas
+- Hay que encontrar un equilibrio
+
+---
+
+### Q-Learning
+
+##### Conceptos
+1. **Q-Value (Action-Value)**: Representa el valor de un estado bajo la política actual.
+2. **Política**: Qué acción tomar en un estado dado.
+3. **Tasa de aprendizaje (α)**: Determina el grado en que la nueva información reemplaza la información antigua. Varía entre 0 y 1.
+
+---
+### Q-Learning
+
+##### Algoritmo:
+1. **Inicializar la Tabla Q**: Una tabla donde las filas representan estados y las columnas representan acciones, inicializada a cero o valores aleatorios.
+2. **Repetir (para cada episodio)**:
+   - **Observar el estado actual (s)**.
+   - **Elegir una acción (a)**: A menudo usando una política epsilon-greedy donde el agente principalmente elige la acción con el valor Q más alto, pero ocasionalmente explora acciones aleatorias.
+   - **Realizar la acción (a)** y observar la recompensa (r) y el siguiente estado (s').
+   - **Actualizar el valor Q**:
+     \[
+     Q(s, a) \leftarrow Q(s, a) + \alpha \left[ r + \gamma \max_{a'} Q(s', a') - Q(s, a) \right]
+     \]
+3. **Repetir hasta la convergencia**: Continuar el proceso hasta que los valores Q converjan a valores estables.
+
+[Más información](https://www.datacamp.com/tutorial/introduction-q-learning-beginner-tutorial)
+
+---
+
+# Implementa Q-Learning
+
+```python
+import random
+
+def multi_armed_bandit(lllIlllIllllIIllll):
+    lIIIllllIIIIllllIl = [lambda : 2 * random.random() + 1, lambda : 3 * random.random() + 2, lambda : random.gauss(1, 0.5), lambda : random.gauss(2, 1.0), lambda : 5]
+    lIIlllIlIlIllIIIll = lIIIllllIIIIllllIl[lllIlllIllllIIllll]()
+    return lIIlllIlIlIllIIIll
+```
+
+- Asignar a estado (brazo) un valor inicial
+- Elegir un estado (brazo) para explorar
+- Actualizar el valor del estado (brazo) elegido con un ratio de aprendizaje
+- Ejecuta el algoritmo hasta la convergencia
+
 
 ---
 
